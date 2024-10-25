@@ -9,16 +9,16 @@ export default function Home() {
     <div className="flex items-center justify-center min-h-screen">
 
       <div className="flex flex-col items-center">
-        <div className="bg-white p-6 text-center rounded-lg shadow-l flex flex-col items-center">
+        <div className="p-6 text-center rounded-lg shadow-l flex flex-col items-center">
           <Image 
-            src="https://dart-academy-public-resources.s3.us-east-1.amazonaws.com/logo/logo.svg" 
+            src="https://dart-academy-public-resources.s3.us-east-1.amazonaws.com/logo/shield.svg" 
             alt="DART Academy Logo" 
             width={350} 
             height={350} 
             className="mb-8"
           />
-          <div className="w-full">
-            <h1 className="text-xl font-bold text-sapphire mb-4 text-left">Coming Soon</h1>
+          <div className="w-full text-white">
+            <h1 className="text-xl font-bold text-pear mb-4 text-left">Coming Soon...</h1>
             <p className="text-lg text-richBlack mb-6 text-left">Learn how to protect yourself from scams.</p>
           </div>
 

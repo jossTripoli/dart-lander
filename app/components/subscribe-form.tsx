@@ -10,7 +10,7 @@ function SubscribeForm() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-slate-800 dark:text-slate-100  font-light text-lg leading-6"
+                  className="bloc dark:text-slate-100  font-light text-[1.25rem] text-gray-300 leading-6"
                 >
                   {newsletterheading}
                 </label>
