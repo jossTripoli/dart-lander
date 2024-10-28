@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import SubscribeForm from "./components/subscribe-form";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -52,7 +52,7 @@ export default function Home() {
 
         <div className="flex mt-8 space-x-4">
           <a 
-            href="https://www.facebook.com" 
+            href="https://www.facebook.com/DartCLTV" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-sapphire shadow-lg hover:bg-sapphire hover:text-white transition-colors"
@@ -60,7 +60,7 @@ export default function Home() {
             <FaFacebookF size={25} />
           </a>
           <a 
-            href="https://www.instagram.com" 
+            href="https://www.instagram.com/dartcltv/" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-sapphire shadow-lg hover:bg-sapphire hover:text-white transition-colors"
@@ -68,12 +68,20 @@ export default function Home() {
             <FaInstagram size={25} />
           </a>
           <a 
-            href="https://www.linkedin.com" 
+            href="https://www.linkedin.com/company/dartcollective/" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-sapphire shadow-lg hover:bg-sapphire hover:text-white transition-colors"
           >
             <FaLinkedinIn size={25} />
+          </a>
+          <a 
+            href="https://www.youtube.com/channel/UC3UbDmkLtodxdL7s_xEKtMQ" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-sapphire shadow-lg hover:bg-sapphire hover:text-white transition-colors"
+          >
+            <FaYoutube size={25} />
           </a>
         </div>
 
