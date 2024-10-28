@@ -1,18 +1,4 @@
 import { useState, FormEvent } from 'react';
-import mailchimp from '@mailchimp/mailchimp_marketing';
-
-// Initialize Mailchimp API
-mailchimp.setConfig({
-  apiKey: process.env.REACT_APP_MAILCHIMP_API_KEY as string,
-  server: 'us21', // Replace with your Mailchimp server prefix
-});
-
-// Define the response type from Mailchimp
-interface MailchimpError {
-  response?: {
-    text?: string;
-  };
-}
 
 function SubscribeForm() {
   const [email, setEmail] = useState<string>('');
@@ -32,16 +18,24 @@ function SubscribeForm() {
     setIsSubmitting(true);
 
     try {
-      // Add or update the contact in Mailchimp
-      await mailchimp.lists.addListMember('YOUR_LIST_ID', {
-        email_address: email,
-        status: 'subscribed',
+      // Send request to the backend API route
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
 
-      setMessage('Successfully subscribed!');
-    } catch (error: unknown) {
-      const mailchimpError = error as MailchimpError;
-      setMessage(`Error: ${mailchimpError.response?.text || 'An error occurred'}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message || 'Successfully subscribed!');
+      } else {
+        setMessage(`Error: ${data.error || 'An error occurred'}`);
+      }
+    } catch (error) {
+      setMessage('An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
       setEmail(''); // Clear the input field after submission
@@ -50,7 +44,7 @@ function SubscribeForm() {
 
   return (
     <>
-      {hideSubscribeForm === false ? (
+      {!hideSubscribeForm && (
         <section className="text-center lg:m-7 mt-10 w-5/6 p-3">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -84,8 +78,6 @@ function SubscribeForm() {
             </div>
           </form>
         </section>
-      ) : (
-        ""
       )}
     </>
   );
