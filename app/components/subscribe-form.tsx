@@ -18,13 +18,17 @@ function SubscribeForm() {
     setIsSubmitting(true);
 
     try {
-      // Send request to the backend API route
-      const response = await fetch('/api/subscribeUser', {
+      // Call the backend API route
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email_address: email,
+          status: 'subscribed',
+          merge_fields: { FNAME: 'User' }, // Add other fields as needed
+        }),
       });
 
       const data = await response.json();
