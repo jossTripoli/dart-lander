@@ -4,7 +4,7 @@ function SubscribeForm() {
   const [email, setEmail] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const newsletterheading = "Notify me when it's ready";
+  const newsletterheading = 'Notify me when it\'s ready';
   const hideSubscribeForm = false;
 
   const handleSubmit = async (e: FormEvent) => {
@@ -27,6 +27,9 @@ function SubscribeForm() {
         body: JSON.stringify({
           email_address: email,
           status: 'subscribed',
+          merge_fields: {
+            FNAME: 'User', // Default value, adjust as needed
+          },
         }),
       });
 
@@ -38,7 +41,7 @@ function SubscribeForm() {
         setMessage(`Error: ${data.error || 'An error occurred'}`);
       }
     } catch (error) {
-      console.log('Error:', error);
+      console.error('Error:', error);
       setMessage('An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
