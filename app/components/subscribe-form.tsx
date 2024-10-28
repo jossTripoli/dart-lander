@@ -36,7 +36,6 @@ function SubscribeForm() {
       }
     } catch (error) {
       setMessage('An unexpected error occurred.');
-      console.log("THE ERROR" + error);
     } finally {
       setIsSubmitting(false);
       setEmail(''); // Clear the input field after submission
