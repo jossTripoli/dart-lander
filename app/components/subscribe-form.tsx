@@ -18,8 +18,8 @@ function SubscribeForm() {
     setIsSubmitting(true);
 
     try {
-      // Call the backend API route
-      const response = await fetch('/api/subscribe', {
+      // Call the server-side API to handle Mailchimp subscription
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +27,6 @@ function SubscribeForm() {
         body: JSON.stringify({
           email_address: email,
           status: 'subscribed',
-          merge_fields: { FNAME: 'User' }, // Add other fields as needed
         }),
       });
 

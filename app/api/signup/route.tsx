@@ -2,25 +2,25 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 
-// Configure Mailchimp with environment variables
+// Set up Mailchimp configuration using environment variables
 mailchimp.setConfig({
-  apiKey: process.env.MAILCHIMP_API_KEY,
-  server: process.env.MAILCHIMP_API_SERVER, // e.g., 'us21'
+  apiKey: process.env.NEXT_PUBLIC_MAILCHIMP_API_KEY as string,
+  server: process.env.NEXT_PUBLIC_MAILCHIMP_DC as string,
 });
 
-// Handle the POST request to add a new subscriber
+// Handle the POST request to add a subscriber to Mailchimp
 export async function POST(req: NextRequest) {
   const { email_address, status, merge_fields } = await req.json();
 
-  // Validate request data
+  // Validate incoming request
   if (!email_address || !status) {
-    return NextResponse.json({ error: 'Email address and status are required.' }, { status: 400 });
+    return NextResponse.json({ error: 'Email address and status are required' }, { status: 400 });
   }
 
   try {
-    // Add subscriber to Mailchimp audience
+    // Make the request to add the subscriber
     await mailchimp.lists.addListMember(
-      process.env.MAILCHIMP_AUDIENCE_ID as string,
+      process.env.NEXT_PUBLIC_MAILCHIMP_LIST_ID as string,
       {
         email_address,
         status,
@@ -28,7 +28,6 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    // Respond with success message
     return NextResponse.json({ message: 'Successfully subscribed!' }, { status: 200 });
   } catch (err) {
     console.error('Mailchimp Error:', err);
