@@ -19,7 +19,7 @@ function SubscribeForm() {
 
     try {
       // Send request to the backend API route
-      const response = await fetch('/api/subscribe', {
+      const response = await fetch('/api/subscribeUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ function SubscribeForm() {
       }
     } catch (error) {
       setMessage('An unexpected error occurred.');
+      console.log("THE ERROR" + error);
     } finally {
       setIsSubmitting(false);
       setEmail(''); // Clear the input field after submission
