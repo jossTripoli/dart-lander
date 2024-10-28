@@ -38,6 +38,7 @@ function SubscribeForm() {
         setMessage(`Error: ${data.error || 'An error occurred'}`);
       }
     } catch (error) {
+      console.log('Error:', error);
       setMessage('An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
