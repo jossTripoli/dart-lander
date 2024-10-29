@@ -36,12 +36,12 @@ function SubscribeForm() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message || 'Successfully subscribed!');
+        setMessage(`${data.message ? `✅ ${data.message}` : '✅ Successfully subscribed!'}`);
       } else {
-        setMessage(`Error: ${data.error || 'An error occurred'}`);
+        setMessage(`❌ Error: ${data.error || 'An error occurred'}`);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Error:', error);
       setMessage('An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
@@ -57,7 +57,7 @@ function SubscribeForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block dark:text-slate-100 font-light text-[1.25rem] text-gray-300 leading-6"
+                className="block dark:text-slate-100 text-lg text-gray-300 leading-6"
               >
                 {newsletterheading}
               </label>
@@ -81,7 +81,7 @@ function SubscribeForm() {
                   {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                 </button>
               </div>
-              {message && <p className="mt-2 text-sm text-gray-500">{message}</p>}
+              {message && <p className="mt-2 text-base text-gray-300">{message}</p>}
             </div>
           </form>
         </section>
