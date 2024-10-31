@@ -50,7 +50,7 @@ export default function Home() {
         </div>
 
 
-        <div className="flex mt-8 space-x-4">
+        <div className="flex mt-4 space-x-4">
           <a 
             href="https://www.facebook.com/DartCLTV" 
             target="_blank" 

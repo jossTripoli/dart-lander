@@ -34,10 +34,16 @@ function SubscribeForm() {
       });
 
       const data = await response.json();
+      console.log('Response:', data);
+      console.log('Status:', response.status);
 
       if (response.ok) {
         setMessage(`${data.message ? `✅ ${data.message}` : '✅ Successfully subscribed!'}`);
+      } else if (response.status === 400) {
+        // Handle "User Already Exists" error specifically
+        setMessage('❌ This email is already subscribed.');
       } else {
+        // Generic error handling for other errors
         setMessage(`❌ Error: ${data.error || 'An error occurred'}`);
       }
     } catch (error) {

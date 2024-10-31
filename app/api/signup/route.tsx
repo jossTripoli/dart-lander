@@ -7,6 +7,8 @@ mailchimp.setConfig({
   server: process.env.NEXT_PUBLIC_MAILCHIMP_DC || '',
 });
 
+
+
 // Define the POST function
 export async function POST(req: NextRequest) {
   try {
@@ -32,8 +34,19 @@ export async function POST(req: NextRequest) {
 
     // Check if the result is an error response
     if ((result as ErrorResponse).status && (result as ErrorResponse).status >= 400) {
+      const errorStatus = Number((result as ErrorResponse).status);
+      console.log("*****ERROR STATUS: ", errorStatus);
       const errorDetail = (result as ErrorResponse).detail || 'An error occurred with Mailchimp.';
-      return NextResponse.json(
+
+      // Handle "already a list member" specific error
+      if (errorStatus === 400 && errorDetail.includes('already a list member')) {
+        return NextResponse.json(
+          { error: 'This email is already subscribed.' },
+          { status: 400 }
+        );
+      }
+
+      return NextResponse.json(        
         { error: errorDetail },
         { status: Number((result as ErrorResponse).status) }
       );
@@ -45,11 +58,11 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error subscribing user:', error);
+    // console.error('Error subscribing user:', error.status);
 
     return NextResponse.json(
       { error: (error as Error).message || 'Failed to process request.' },
-      { status: 500 }
+      { status: error.status }
     );
   }
 }
