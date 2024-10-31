@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mailchimp, { ErrorResponse } from '@mailchimp/mailchimp_marketing';
 
+interface ErrorWithStatus extends Error {
+  status?: number;
+}
+
 // Configure Mailchimp
 mailchimp.setConfig({
   apiKey: process.env.NEXT_PUBLIC_MAILCHIMP_API_KEY || '',
   server: process.env.NEXT_PUBLIC_MAILCHIMP_DC || '',
 });
-
 
 
 // Define the POST function
@@ -58,11 +61,10 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    // console.error('Error subscribing user:', error.status);
-
+    const typedError = error as ErrorWithStatus;
     return NextResponse.json(
-      { error: (error as Error).message || 'Failed to process request.' },
-      { status: error.status }
+      { error: typedError.message || 'Failed to process request.' },
+      { status: typedError.status }
     );
   }
 }
